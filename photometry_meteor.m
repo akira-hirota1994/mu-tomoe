@@ -3,11 +3,11 @@
 % section : SETTING  
 
 %%%  FILE OUTPUT(.pdfの出力) 
-option_show_image = 0; %yes:1, no:0
-option_save_image = 0; %yes:1, no:0
+option_show_image = 1; %yes:1, no:0
+option_save_image = 1; %yes:1, no:0
 
 %%%  ANALIZE SINGLE IMAGE FILE
-option_single_image = 0; %yes:1, no:0
+option_single_image = 1; %yes:1, no:0
 ID_number = "572534_007"; %571226_095 , 571342_058(recheck),572534_007
 pixel_width = 10; %default is 20pix
 
@@ -21,7 +21,7 @@ version = "main"; % 'test' or 'main'
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % section : 色々値引っ張ってくる
 
-if option_single_image == 1 && re_analyze == 1; %単体
+if option_single_image == 1 && re_analyze == 1 %単体
     if version == "test"
         data_table = readtable("test6.csv");
         recheck_list =readtable("test_recheck_photometry.csv");
@@ -120,7 +120,7 @@ elseif option_single_image == 0 && re_analyze == 1; %二回目-全部
     duration = table2array(duration);
     loop_number = size(index);
 %}    
-elseif option_single_image == 0 && re_analyze == 0; %初回
+elseif option_single_image == 0 && re_analyze == 0 %初回
     if version == "test"
         data_table = readtable("test6.csv");
     elseif version == "main"
@@ -159,7 +159,7 @@ elseif option_single_image == 0 && re_analyze == 0; %初回
     loop_number = size(ID);
 end
 
-recheck_ID = [];angle_original = [];,pixel_width_original = [];
+recheck_ID = [];angle_original = [];pixel_width_original = [];
 flux_meteor_original = [];line_intensity_original = [];
 pixel_width_modified = [];flux_meteor_modified = [];
 line_intensity_modified = [];
@@ -222,7 +222,7 @@ line_intensity = zeros(loop_number);
 h = waitbar(0,'running');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % section : midpoint
-for i = 1:loop_number
+for i = 1:loop_number %%%途中からループはここをいじる
     t = t + 1; 
     h = waitbar(i/LoopNum,h,['Number of Loop = ',num2str(t)]); %waitbar
     if option_single_image == 1
@@ -301,7 +301,7 @@ for i = 1:loop_number
         flux(i,1) = 0;
         disp("This frame is out of range.");
         
-        if option_single_image == 1 && re_analyze == 1;
+        if option_single_image == 1 && re_analyze == 1
             %{
             ここいらない
             pixel_width = array2table(pixel_width);
@@ -320,7 +320,7 @@ for i = 1:loop_number
             %recheck_list(index,"line_intensity_modified") = line_intensity;
             %recheck_list(index,"flux_modified") = flux;
         %} 
-        elseif option_single_image == 0 && re_analyze == 0; %recheck_list
+        elseif option_single_image == 0 && re_analyze == 0 %recheck_list
             recheck_ID = vertcat(recheck_ID,ID_list(i,1));
             angle_original = vertcat(angle_original,angle(i,1));
             pixel_width_original = vertcat(pixel_width_original,pixel_width);
@@ -353,6 +353,7 @@ for i = 1:loop_number
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % section : photometryイメージ
         if option_show_image == 1
+            figure('visible', 'on');
             subplot(2,2,1)
             option_show_image = 1;
             plot(x,y); %ガウシアン画像
@@ -528,5 +529,5 @@ elseif option_single_image == 0 && re_analyze == 0 %初回
         writetable(recheck_list,"recheck_photometry.csv");
     end
 end
-%close;
+close;
 disp("Complete!")
