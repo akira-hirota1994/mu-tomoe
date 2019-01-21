@@ -1,1 +1,2 @@
-2019.1.19;photometry_analysis.m一枚ずつできるようになった
+2019.1.19;photometry_analysis.m,一枚ずつできるようになった
+2019.1.21;photometry_analysis.m,testとmainで区分け
