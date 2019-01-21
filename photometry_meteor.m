@@ -2,22 +2,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % section : SETTING  
 
+%TF = readtable("recheck_photometry.csv");
+%name = TF(:,"ID");name = table2array(name);
+%for k =1:size(name)
+    %ID_number = name(k,1);
+    %ID_number = string(ID_number);
+    
+    
 %%%  FILE OUTPUT(.pdfの出力) 
 option_show_image = 1; %yes:1, no:0
 option_save_image = 1; %yes:1, no:0
 
 %%%  ANALIZE SINGLE IMAGE FILE
 option_single_image = 1; %yes:1, no:0
-ID_number = "572534_007"; %571226_095 , 571342_058(recheck),572534_007
+%ID_number = "586316_109"; %571226_095 , 571342_058(recheck),572534_007
 pixel_width = 10; %default is 20pix
 
 %%% ANALYZIE SETTING
-re_analyze = 0; %yes:1, no:0
-version = "main"; % 'test' or 'main'
+re_analyze = 1; %yes:1, no:0
+version = "test"; % 'test' or 'main'
 
 
 %%%%% TO DO LIST %%%%%%
 %・2回目以降で全部やるやつはしばらく放置
+%ID ; 661714_118 , 705614_052 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % section : 色々値引っ張ってくる
 
@@ -390,7 +399,11 @@ for i = 1:loop_number %%%途中からループはここをいじる
             hold off
             axis equal
             if option_save_image == 1
-                saveas(gcf,image_filename(i,1));
+                if option_single_image == 1
+                    saveas(gcf,image_filename(1,1));
+                else
+                    saveas(gcf,image_filename(i,1));
+                end
             end
         end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -440,9 +453,9 @@ close(h);
 % section : 元のデータテーブルに加える
 if option_single_image == 1 && re_analyze == 1 %単体&二回目
     
+    pixel_width_modified = array2table(pixel_width);
     line_intensity_modified = array2table(line_intensity);
     flux_meteor_modified = array2table(flux);
-    pixel_width_modified = array2table(pixel_width);
     data_table_overwrite(index,"line_intensity") = line_intensity_modified;
     data_table_overwrite(index,"flux_meteor") = flux_meteor_modified;
     
@@ -529,5 +542,6 @@ elseif option_single_image == 0 && re_analyze == 0 %初回
         writetable(recheck_list,"recheck_photometry.csv");
     end
 end
+%end
 close;
 disp("Complete!")
