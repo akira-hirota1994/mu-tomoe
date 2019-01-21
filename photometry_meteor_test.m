@@ -3,17 +3,17 @@
 % section : SETTING  
 
 %%%  FILE OUTPUT(.pdfÇÃèoóÕ) 
-option_show_image = 0; %yes:1, no:0
+option_show_image = 1; %yes:1, no:0
 option_save_image = 0; %yes:1, no:0
 
 %%%  ANALIZE SINGLE IMAGE FILE
-option_single_image = 0; %yes:1, no:0
+option_single_image = 1; %yes:1, no:0
 ID_number = "572534_007"; %571226_095 , 571342_058(recheck),572534_007
 pixel_width = 10; %default is 20pix
 
 %%% ANALYZIE SETTING
-re_analyze = 0; %yes:1, no:0
-version = "main"; % 'test' or 'main'
+re_analyze = 1; %yes:1, no:0
+version = "test"; % 'test' or 'main'
 
 
 %%%%% TO DO LIST %%%%%%
