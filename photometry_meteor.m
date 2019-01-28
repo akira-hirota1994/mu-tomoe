@@ -10,8 +10,8 @@
     
     
 %%%  FILE OUTPUT(.pdfÇÃèoóÕ) 
-option_show_image = 1; %yes:1, no:0
-option_save_image = 1; %yes:1, no:0
+option_show_image = 0; %yes:1, no:0
+option_save_image = 0; %yes:1, no:0
 
 %%%  ANALIZE SINGLE IMAGE FILE
 option_single_image = 1; %yes:1, no:0
