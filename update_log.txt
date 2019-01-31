@@ -2,4 +2,4 @@
 2019.1.21;photometry_analysis.m,testとmainで区分け
 2019.1.25;xmlでgaia dr2の恒星情報(d_csvに入れる),photmetry_gaiaでG等級
                   最初のreadcsvでtest.csv読めばいいからipynbの_testいらない?
-  
+  git test
